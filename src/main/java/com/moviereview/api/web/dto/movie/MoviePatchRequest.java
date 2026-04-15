@@ -1,4 +1,4 @@
-package com.moviereview.api.dto.movie;
+package com.moviereview.api.web.dto.movie;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDate;

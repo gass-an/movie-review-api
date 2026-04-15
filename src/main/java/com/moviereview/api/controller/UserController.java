@@ -1,10 +1,10 @@
 package com.moviereview.api.controller;
 
-import com.moviereview.api.dto.review.ReviewResponse;
-import com.moviereview.api.dto.user.UserRegisterRequest;
-import com.moviereview.api.dto.user.UserResponse;
-import com.moviereview.api.controller.mapper.ReviewMapper;
-import com.moviereview.api.controller.mapper.UserMapper;
+import com.moviereview.api.web.dto.review.ReviewResponse;
+import com.moviereview.api.web.dto.user.UserRegisterRequest;
+import com.moviereview.api.web.dto.user.UserResponse;
+import com.moviereview.api.web.mapper.ReviewMapper;
+import com.moviereview.api.web.mapper.UserMapper;
 import com.moviereview.api.entity.User;
 import com.moviereview.api.exception.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;

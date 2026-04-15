@@ -1,4 +1,4 @@
-package com.moviereview.api.dto.review;
+package com.moviereview.api.web.dto.review;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

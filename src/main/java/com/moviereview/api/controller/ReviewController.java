@@ -1,9 +1,9 @@
 package com.moviereview.api.controller;
 
-import com.moviereview.api.dto.review.CreateReviewRequest;
-import com.moviereview.api.dto.review.ReviewResponse;
-import com.moviereview.api.dto.review.UpdateReviewRequest;
-import com.moviereview.api.controller.mapper.ReviewMapper;
+import com.moviereview.api.web.dto.review.CreateReviewRequest;
+import com.moviereview.api.web.dto.review.ReviewResponse;
+import com.moviereview.api.web.dto.review.UpdateReviewRequest;
+import com.moviereview.api.web.mapper.ReviewMapper;
 import com.moviereview.api.entity.Review;
 import com.moviereview.api.exception.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;

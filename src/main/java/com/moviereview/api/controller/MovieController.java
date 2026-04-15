@@ -1,11 +1,11 @@
 package com.moviereview.api.controller;
 
-import com.moviereview.api.dto.movie.MovieCreateRequest;
-import com.moviereview.api.dto.movie.MoviePatchRequest;
-import com.moviereview.api.dto.movie.MovieResponse;
-import com.moviereview.api.dto.review.ReviewResponse;
-import com.moviereview.api.controller.mapper.MovieMapper;
-import com.moviereview.api.controller.mapper.ReviewMapper;
+import com.moviereview.api.web.dto.movie.MovieCreateRequest;
+import com.moviereview.api.web.dto.movie.MoviePatchRequest;
+import com.moviereview.api.web.dto.movie.MovieResponse;
+import com.moviereview.api.web.dto.review.ReviewResponse;
+import com.moviereview.api.web.mapper.MovieMapper;
+import com.moviereview.api.web.mapper.ReviewMapper;
 import com.moviereview.api.entity.Movie;
 import com.moviereview.api.exception.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;

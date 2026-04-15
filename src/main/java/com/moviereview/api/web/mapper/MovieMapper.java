@@ -1,7 +1,7 @@
-package com.moviereview.api.controller.mapper;
+package com.moviereview.api.web.mapper;
 
-import com.moviereview.api.dto.movie.MovieCreateRequest;
-import com.moviereview.api.dto.movie.MovieResponse;
+import com.moviereview.api.web.dto.movie.MovieCreateRequest;
+import com.moviereview.api.web.dto.movie.MovieResponse;
 import com.moviereview.api.entity.Movie;
 import org.springframework.stereotype.Component;
 

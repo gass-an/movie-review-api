@@ -1,4 +1,4 @@
-package com.moviereview.api.dto.user;
+package com.moviereview.api.web.dto.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 public record UserResponse(
         @Schema(description = "Identifiant de l'utilisateur", example = "2")
         Long id,
-        @Schema(description = "Nom d'utilisateur", example = "anthony")
+        @Schema(description = "Nom d'utilisateur", example = "JoeDalton")
         String username,
-        @Schema(description = "Adresse email", example = "anthony@example.com")
+        @Schema(description = "Adresse email", example = "joe.dalton@example.com")
         String email,
         @Schema(description = "Date de création", example = "2026-04-15T16:55:00", accessMode = Schema.AccessMode.READ_ONLY)
         LocalDateTime createdAt

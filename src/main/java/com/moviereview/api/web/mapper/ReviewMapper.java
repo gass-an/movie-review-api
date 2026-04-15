@@ -1,6 +1,6 @@
-package com.moviereview.api.controller.mapper;
+package com.moviereview.api.web.mapper;
 
-import com.moviereview.api.dto.review.ReviewResponse;
+import com.moviereview.api.web.dto.review.ReviewResponse;
 import com.moviereview.api.entity.Review;
 import org.springframework.stereotype.Component;
 
