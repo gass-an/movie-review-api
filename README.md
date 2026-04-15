@@ -9,6 +9,7 @@
 
 - Spring Web
 - Spring Data JPA
+- Springdoc OpenAPI / Swagger UI
 - PostgreSQL Driver
 - Spring Boot DevTools
 - Lombok
@@ -44,6 +45,8 @@ MovieReviewApiApplication
 ## Accès
 
 - API : http://localhost:8080
+- Swagger UI : http://localhost:8080/swagger-ui/index.html
+- OpenAPI JSON : http://localhost:8080/v3/api-docs
 - Base PostgreSQL : localhost:5433
 
 ---
