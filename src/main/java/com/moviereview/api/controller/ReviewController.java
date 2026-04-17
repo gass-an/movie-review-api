@@ -15,7 +15,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import com.moviereview.api.service.ReviewService;
 import java.net.URI;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -48,10 +48,10 @@ public class ReviewController {
     @Operation(summary = "Créer une review", description = "Crée une review pour un couple film/utilisateur.")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Review créée"),
-            @ApiResponse(responseCode = "400", description = "Payload invalide", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Film ou utilisateur introuvable", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "409", description = "Review déjà existante", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "400", description = "Payload invalide", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Film ou utilisateur introuvable", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Review déjà existante", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
     })
     @PostMapping
     public ResponseEntity<ReviewResponse> create(@RequestBody CreateReviewRequest request) {
@@ -76,29 +76,12 @@ public class ReviewController {
     @Operation(summary = "Récupérer une review", description = "Récupère une review à partir de son identifiant.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Review trouvée"),
-            @ApiResponse(responseCode = "404", description = "Review introuvable", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "404", description = "Review introuvable", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
     })
     @GetMapping("/{id}")
     public ResponseEntity<ReviewResponse> getById(@Parameter(description = "Identifiant de la review", example = "10") @PathVariable Long id) {
         return ResponseEntity.ok(reviewMapper.toResponse(reviewService.getById(id)));
-    }
-
-    /**
-     * Récupère toutes les reviews d'un film.
-     *
-     * @param movieId l'identifiant du film.
-     * @return la liste des reviews du film.
-     */
-    @Operation(summary = "Lister les reviews d'un film", description = "Retourne toutes les reviews associées à un film.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Liste des reviews récupérée"),
-            @ApiResponse(responseCode = "404", description = "Film introuvable", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-    })
-    @GetMapping("/movie/{movieId}")
-    public ResponseEntity<List<ReviewResponse>> getByMovieId(@Parameter(description = "Identifiant du film", example = "1") @PathVariable Long movieId) {
-        return ResponseEntity.ok(reviewService.getByMovieId(movieId).stream().map(reviewMapper::toResponse).toList());
     }
 
     /**
@@ -108,16 +91,16 @@ public class ReviewController {
      * @param userId l'identifiant de l'utilisateur.
      * @return la review trouvée pour ce couple film/utilisateur.
      */
-    @Operation(summary = "Récupérer une review par film et utilisateur", description = "Retourne la review unique pour un couple film/utilisateur.")
+    @Operation(summary = "Rechercher une review par film et utilisateur", description = "Retourne la review unique pour un couple film/utilisateur.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Review trouvée"),
-            @ApiResponse(responseCode = "404", description = "Film, utilisateur ou review introuvable", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "404", description = "Film, utilisateur ou review introuvable", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
     })
-    @GetMapping("/movie/{movieId}/user/{userId}")
-    public ResponseEntity<ReviewResponse> getByMovieIdAndUserId(
-            @Parameter(description = "Identifiant du film", example = "1") @PathVariable Long movieId,
-            @Parameter(description = "Identifiant de l'utilisateur", example = "2") @PathVariable Long userId
+    @GetMapping("/search")
+    public ResponseEntity<ReviewResponse> searchByMovieIdAndUserId(
+            @Parameter(description = "Identifiant du film", example = "1") @RequestParam Long movieId,
+            @Parameter(description = "Identifiant de l'utilisateur", example = "2") @RequestParam Long userId
     ) {
         return ResponseEntity.ok(reviewMapper.toResponse(reviewService.getByMovieIdAndUserId(movieId, userId)));
     }
@@ -132,9 +115,9 @@ public class ReviewController {
     @Operation(summary = "Mettre à jour une review", description = "Met à jour partiellement une review existante.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Review mise à jour"),
-            @ApiResponse(responseCode = "400", description = "Payload invalide", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Review introuvable", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "400", description = "Payload invalide", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Review introuvable", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
     })
     @PatchMapping("/{id}")
     public ResponseEntity<ReviewResponse> update(
@@ -154,8 +137,8 @@ public class ReviewController {
     @Operation(summary = "Supprimer une review", description = "Supprime une review à partir de son identifiant.")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Review supprimée"),
-            @ApiResponse(responseCode = "404", description = "Review introuvable", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "404", description = "Review introuvable", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@Parameter(description = "Identifiant de la review", example = "10") @PathVariable Long id) {

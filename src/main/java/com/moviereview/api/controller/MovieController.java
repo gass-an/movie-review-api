@@ -46,8 +46,8 @@ public class MovieController {
     @Operation(summary = "Créer un film", description = "Crée un nouveau film et retourne la ressource créée.")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Film créé"),
-            @ApiResponse(responseCode = "400", description = "Payload invalide", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "400", description = "Payload invalide", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
     })
     @PostMapping
     public ResponseEntity<MovieResponse> create(@RequestBody MovieCreateRequest request) {
@@ -65,11 +65,31 @@ public class MovieController {
     @Operation(summary = "Lister les films", description = "Retourne tous les films disponibles.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Liste des films récupérée"),
-            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
     })
     @GetMapping
     public ResponseEntity<List<MovieResponse>> getAll() {
         return ResponseEntity.ok(movieService.getAll().stream().map(movieMapper::toResponse).toList());
+    }
+
+    /**
+     * Recherche les films par titre.
+     *
+     * @param title le fragment de titre recherché.
+     * @return la liste des films correspondants.
+     */
+    @Operation(summary = "Rechercher des films par titre", description = "Retourne les films dont le titre contient la valeur fournie.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Résultats de recherche récupérés"),
+            @ApiResponse(responseCode = "400", description = "Paramètre title invalide", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
+    })
+    @GetMapping("/search")
+    public ResponseEntity<List<MovieResponse>> searchByTitle(
+            @Parameter(description = "Fragment de titre à rechercher", example = "matrix")
+            @RequestParam String title
+    ) {
+        return ResponseEntity.ok(movieService.searchByTitle(title).stream().map(movieMapper::toResponse).toList());
     }
 
     /**
@@ -81,8 +101,8 @@ public class MovieController {
     @Operation(summary = "Récupérer un film", description = "Récupère un film à partir de son identifiant.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Film trouvé"),
-            @ApiResponse(responseCode = "404", description = "Film introuvable", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "404", description = "Film introuvable", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
     })
     @GetMapping("/{id}")
     public ResponseEntity<MovieResponse> getById(@Parameter(description = "Identifiant du film", example = "1") @PathVariable Long id) {
@@ -98,8 +118,8 @@ public class MovieController {
     @Operation(summary = "Lister les reviews d'un film", description = "Retourne toutes les reviews associées à un film.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Liste des reviews récupérée"),
-            @ApiResponse(responseCode = "404", description = "Film introuvable", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "404", description = "Film introuvable", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
     })
     @GetMapping("/{id}/reviews")
     public ResponseEntity<List<ReviewResponse>> getReviewsByMovieId(@Parameter(description = "Identifiant du film", example = "1") @PathVariable Long id) {
@@ -116,9 +136,9 @@ public class MovieController {
     @Operation(summary = "Mettre à jour un film", description = "Met à jour partiellement un film existant.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Film mis à jour"),
-            @ApiResponse(responseCode = "400", description = "Payload invalide", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Film introuvable", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "400", description = "Payload invalide", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Film introuvable", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
     })
     @PatchMapping("/{id}")
     public ResponseEntity<MovieResponse> update(@Parameter(description = "Identifiant du film", example = "1") @PathVariable Long id, @RequestBody MoviePatchRequest request) {
@@ -140,8 +160,8 @@ public class MovieController {
     @Operation(summary = "Supprimer un film", description = "Supprime un film à partir de son identifiant.")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Film supprimé"),
-            @ApiResponse(responseCode = "404", description = "Film introuvable", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "404", description = "Film introuvable", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@Parameter(description = "Identifiant du film", example = "1") @PathVariable Long id) {

@@ -38,6 +38,16 @@ public class MovieService {
     }
 
     /**
+     * Recherche les films dont le titre contient une chaîne donnée.
+     *
+     * @param title le fragment de titre recherché.
+     * @return la liste des films correspondants.
+     */
+    public List<Movie> searchByTitle(String title) {
+        return movieRepository.findByTitleContainingIgnoreCase(title);
+    }
+
+    /**
      * Récupère un film par son identifiant.
      *
      * @param id l'identifiant du film.

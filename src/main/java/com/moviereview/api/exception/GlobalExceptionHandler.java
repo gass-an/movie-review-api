@@ -2,6 +2,7 @@ package com.moviereview.api.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -25,6 +26,22 @@ public class GlobalExceptionHandler {
                 ex.getStatus().value()
         );
         return ResponseEntity.status(ex.getStatus()).body(body);
+    }
+
+    /**
+     * Convertit les violations d'intégrité (ex: contraintes d'unicité) en conflit HTTP générique.
+     *
+     * @param ex l'exception de persistance interceptée.
+     * @return une réponse HTTP 409 avec un corps d'erreur standard.
+     */
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorResponse> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        ErrorResponse body = new ErrorResponse(
+                "DATA_INTEGRITY_VIOLATION",
+                "Data integrity violation",
+                HttpStatus.CONFLICT.value()
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
     }
 
     /**

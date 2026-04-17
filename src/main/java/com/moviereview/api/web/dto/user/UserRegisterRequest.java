@@ -10,9 +10,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 @Schema(name = "UserRegisterRequest", description = "Payload d'enregistrement d'un utilisateur")
 public record UserRegisterRequest(
-        @Schema(description = "Nom d'utilisateur unique", example = "anthony")
+        @Schema(description = "Nom d'utilisateur unique", example = "JoeDalton")
         String username,
-        @Schema(description = "Adresse email de l'utilisateur", example = "anthony@example.com")
+        @Schema(description = "Adresse email de l'utilisateur", example = "joe.dalton@example.com")
         String email
 ) {
 }
