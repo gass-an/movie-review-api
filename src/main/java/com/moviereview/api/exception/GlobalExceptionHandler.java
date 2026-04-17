@@ -31,11 +31,10 @@ public class GlobalExceptionHandler {
     /**
      * Convertit les violations d'intégrité (ex: contraintes d'unicité) en conflit HTTP générique.
      *
-     * @param ex l'exception de persistance interceptée.
      * @return une réponse HTTP 409 avec un corps d'erreur standard.
      */
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ErrorResponse> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+    public ResponseEntity<ErrorResponse> handleDataIntegrityViolation() {
         ErrorResponse body = new ErrorResponse(
                 "DATA_INTEGRITY_VIOLATION",
                 "Data integrity violation",
@@ -47,11 +46,10 @@ public class GlobalExceptionHandler {
     /**
      * Transforme toute exception inattendue en erreur interne générique.
      *
-     * @param ex l'exception non gérée.
      * @return une réponse HTTP 500 avec un corps d'erreur standard.
      */
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleUnexpectedException(Exception ex) {
+    public ResponseEntity<ErrorResponse> handleUnexpectedException() {
         ErrorResponse body = new ErrorResponse(
                 "INTERNAL_ERROR",
                 "Unexpected server error",
