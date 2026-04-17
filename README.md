@@ -16,15 +16,34 @@
 
 ---
 
-## Lancer la base PostgreSQL
+## Lancer toute la stack avec Docker (DB + API + Front)
+
+### Première fois
 
 ```bash
-docker compose up
+docker compose up --build -d
 ```
+
+### Lancements suivants
+
+```bash
+docker compose up -d
+```
+
+Ces commandes lancent :
+
+- PostgreSQL
+- l'application Spring Boot
+- le front statique
+
+Après démarrage, vérifier :
+
+- Front : `http://localhost:5173/`
+- Swagger : `http://localhost:8080/swagger-ui/index.html#/`
 
 ---
 
-## Lancer l'application
+## Lancer l'application Spring Boot en local (sans Docker)
 
 ### Avec IntelliJ
 Lancer la classe :
@@ -45,13 +64,14 @@ MovieReviewApiApplication
 ## Accès
 
 - API : http://localhost:8080
-- Swagger UI : http://localhost:8080/swagger-ui/index.html
+- Swagger UI : http://localhost:8080/swagger-ui/index.html#/
 - OpenAPI JSON : http://localhost:8080/v3/api-docs
 - Base PostgreSQL : localhost:5433
+- Front : http://localhost:5173/
 
 ---
 
-## Arrêter la base
+## Arrêter la stack
 
 ```bash
 docker compose down
