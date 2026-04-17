@@ -52,6 +52,15 @@ public class ReviewService {
     }
 
     /**
+     * Récupère toutes les reviews.
+     *
+     * @return la liste de toutes les reviews.
+     */
+    public List<Review> getAll() {
+        return reviewRepository.findAll();
+    }
+
+    /**
      * Récupère toutes les reviews liées à un film.
      *
      * @param movieId l'identifiant du film.

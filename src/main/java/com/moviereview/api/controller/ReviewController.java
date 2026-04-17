@@ -5,16 +5,15 @@ import com.moviereview.api.web.dto.review.ReviewResponse;
 import com.moviereview.api.web.dto.review.UpdateReviewRequest;
 import com.moviereview.api.web.mapper.ReviewMapper;
 import com.moviereview.api.entity.Review;
-import com.moviereview.api.exception.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import com.moviereview.api.service.ReviewService;
 import java.net.URI;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,6 +37,21 @@ public class ReviewController {
 
     private final ReviewService reviewService;
     private final ReviewMapper reviewMapper;
+
+    /**
+     * Récupère toutes les reviews.
+     *
+     * @return la liste de toutes les reviews.
+     */
+    @Operation(summary = "Lister les reviews", description = "Retourne toutes les reviews enregistrées.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Liste des reviews récupérée"),
+            @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
+    })
+    @GetMapping
+    public ResponseEntity<List<ReviewResponse>> getAll() {
+        return ResponseEntity.ok(reviewService.getAll().stream().map(reviewMapper::toResponse).toList());
+    }
 
     /**
      * Crée une review pour un film et un utilisateur donnés.
