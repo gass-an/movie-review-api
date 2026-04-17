@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Review API - Test Front</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Movie Review API</h1>
+      <p>Petit front de test en HTML/CSS/JS pur</p>
+    </div>
+    <div class="api-bar">
+      <label for="apiBase">API base URL</label>
+      <input id="apiBase" type="text" value="http://localhost:8080" />
+      <button id="saveApiBase" type="button">Enregistrer</button>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="panel">
+      <div class="panel__header">
+        <h2>Films</h2>
+        <div class="actions">
+          <button id="loadMovies" type="button">Charger</button>
+          <button id="clearMovies" type="button" class="secondary">Vider</button>
+        </div>
+      </div>
+
+      <div class="two-cols">
+        <form id="movieCreateForm" class="card form">
+          <h3>Créer un film</h3>
+          <div class="inline-cols">
+            <label>Titre <input name="title" required /></label>
+            <label>Date de sortie <input name="releaseDate" type="date" /></label>
+          </div>
+          <label>Description <textarea name="description" rows="3"></textarea></label>
+          <button type="submit">Créer</button>
+        </form>
+
+        <form id="movieSearchForm" class="card form">
+          <h3>Rechercher</h3>
+          <label>Titre <input name="title" placeholder="matrix" required /></label>
+          <button type="submit">Rechercher</button>
+        </form>
+      </div>
+
+      <form id="moviePatchForm" class="card form">
+        <h3>Mettre à jour un film</h3>
+        <div class="three-cols">
+          <label>ID <input name="id" type="number" min="1" required /></label>
+          <label>Nouveau titre <input name="title" /></label>
+          <label>Nouvelle date <input name="releaseDate" type="date" /></label>
+        </div>
+        <label>Nouvelle description <textarea name="description" rows="3"></textarea></label>
+        <button type="submit">Mettre à jour</button>
+      </form>
+
+      <form id="movieDeleteForm" class="card form inline-form">
+        <h3>Supprimer un film</h3>
+        <label>ID <input name="id" type="number" min="1" required /></label>
+        <button type="submit" class="danger">Supprimer</button>
+      </form>
+
+      <div id="moviesResult" class="results"></div>
+      <div class="small-note">Endpoints: <code>GET /movies</code>, <code>GET /movies/search?title=...</code>, <code>POST /movies</code>, <code>PATCH /movies/{id}</code>, <code>DELETE /movies/{id}</code></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel__header">
+        <h2>Utilisateurs</h2>
+        <div class="actions">
+          <button id="loadUsers" type="button">Charger</button>
+          <button id="clearUsers" type="button" class="secondary">Vider</button>
+        </div>
+      </div>
+
+      <div class="two-cols">
+        <form id="userRegisterForm" class="card form">
+          <h3>Créer un user</h3>
+          <label>Username <input name="username" required /></label>
+          <label>Email <input name="email" type="email" required /></label>
+          <button type="submit">Créer</button>
+        </form>
+
+        <form id="userSearchForm" class="card form">
+          <h3>Rechercher</h3>
+          <label>Username <input name="username" placeholder="JoeDalton" required /></label>
+          <button type="submit">Rechercher</button>
+        </form>
+      </div>
+
+      <form id="userPatchForm" class="card form">
+        <h3>Mettre à jour un user</h3>
+        <div class="three-cols">
+          <label>ID <input name="id" type="number" min="1" required /></label>
+          <label>Nouveau username <input name="username" /></label>
+          <label>Nouvel email <input name="email" type="email" /></label>
+        </div>
+        <button type="submit">Mettre à jour</button>
+      </form>
+
+      <form id="userDeleteForm" class="card form inline-form">
+        <h3>Supprimer un user</h3>
+        <label>ID <input name="id" type="number" min="1" required /></label>
+        <button type="submit" class="danger">Supprimer</button>
+      </form>
+
+      <div id="usersResult" class="results"></div>
+      <div class="small-note">Endpoints: <code>GET /users</code>, <code>GET /users/search?username=...</code>, <code>POST /users/register</code>, <code>PATCH /users/{id}</code>, <code>DELETE /users/{id}</code></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel__header">
+        <h2>Reviews</h2>
+        <div class="actions">
+          <button id="loadReviews" type="button">Charger</button>
+          <button id="clearReviews" type="button" class="secondary">Vider</button>
+        </div>
+      </div>
+
+      <div class="two-cols">
+        <form id="reviewCreateForm" class="card form">
+          <h3>Créer une review</h3>
+          <div class="three-cols">
+            <label>Movie ID <input name="movieId" type="number" min="1" required /></label>
+            <label>User ID <input name="userId" type="number" min="1" required /></label>
+            <label>Rating <input name="rating" type="number" min="1" max="5" required /></label>
+          </div>
+          <label>Commentaire <textarea name="comment" rows="3"></textarea></label>
+          <button type="submit">Créer</button>
+        </form>
+
+        <form id="reviewSearchForm" class="card form">
+          <h3>Rechercher</h3>
+          <div class="three-cols">
+            <label>Movie ID <input name="movieId" type="number" min="1" required /></label>
+            <label>User ID <input name="userId" type="number" min="1" required /></label>
+          </div>
+          <button type="submit">Rechercher</button>
+        </form>
+      </div>
+
+      <form id="reviewPatchForm" class="card form">
+        <h3>Mettre à jour une review</h3>
+        <div class="inline-cols">
+          <label>ID <input name="id" type="number" min="1" required /></label>
+          <label>Nouvelle note <input name="rating" type="number" min="1" max="5" /></label>
+        </div>
+        <label>Nouveau commentaire <textarea name="comment" rows="4"></textarea></label>
+        <button type="submit">Mettre à jour</button>
+      </form>
+
+      <form id="reviewDeleteForm" class="card form inline-form">
+        <h3>Supprimer une review</h3>
+        <label>ID <input name="id" type="number" min="1" required /></label>
+        <button type="submit" class="danger">Supprimer</button>
+      </form>
+
+      <div id="reviewsResult" class="results"></div>
+      <div class="small-note">Endpoints: <code>GET /reviews/</code>, <code>GET /reviews/{id}</code>, <code>GET /reviews/search?movieId=...&amp;userId=...</code>, <code>POST /reviews</code>, <code>PATCH /reviews/{id}</code>, <code>DELETE /reviews/{id}</code></div>
+    </section>
+
+    <section class="panel panel--wide">
+      <div class="panel__header">
+        <h2>Dernière réponse</h2>
+        <button id="clearLog" type="button" class="secondary">Vider</button>
+      </div>
+      <pre id="log" class="log">Prêt.</pre>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
+
