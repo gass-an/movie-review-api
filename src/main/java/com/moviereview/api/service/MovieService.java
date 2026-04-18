@@ -1,6 +1,7 @@
 package com.moviereview.api.service;
 
 import com.moviereview.api.entity.Movie;
+import com.moviereview.api.exception.movie.MovieAlreadyExistsException;
 import com.moviereview.api.exception.movie.MovieNotFoundException;
 import com.moviereview.api.repository.MovieRepository;
 
@@ -25,6 +26,9 @@ public class MovieService {
      * @return le film enregistré.
      */
     public Movie create(Movie movie) {
+        if (movieRepository.existsByTitleAndReleaseDate(movie.getTitle(), movie.getReleaseDate())) {
+            throw MovieAlreadyExistsException.byTitleAndReleaseDate(movie.getTitle(), movie.getReleaseDate());
+        }
         return movieRepository.save(movie);
     }
 
@@ -69,6 +73,13 @@ public class MovieService {
      */
     public Movie updateTitleAndDescriptionAndReleaseDate(Long id, String title, String description, LocalDate releaseDate) {
         Movie movie = getById(id);
+
+        String effectiveTitle = title != null ? title : movie.getTitle();
+        LocalDate effectiveReleaseDate = releaseDate != null ? releaseDate : movie.getReleaseDate();
+
+        if (movieRepository.existsByTitleAndReleaseDateAndIdNot(effectiveTitle, effectiveReleaseDate, id)) {
+            throw MovieAlreadyExistsException.byTitleAndReleaseDate(effectiveTitle, effectiveReleaseDate);
+        }
 
         if (title != null) {
             movie.setTitle(title);

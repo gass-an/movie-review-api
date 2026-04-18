@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,12 @@ import org.hibernate.annotations.UpdateTimestamp;
  * Représente un film stocké en base de données.
  */
 @Entity
-@Table(name = "movies")
+@Table(
+        name = "movies",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "uk_movies_title_release_date", columnNames = {"title", "release_date"})
+        }
+)
 @Getter
 @Setter
 @NoArgsConstructor

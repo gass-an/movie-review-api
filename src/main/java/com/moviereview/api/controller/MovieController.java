@@ -45,6 +45,7 @@ public class MovieController {
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Film créé"),
             @ApiResponse(responseCode = "400", description = "Payload invalide", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Film déjà existant (même titre/date)", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
     })
     @PostMapping
@@ -135,6 +136,7 @@ public class MovieController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Film mis à jour"),
             @ApiResponse(responseCode = "400", description = "Payload invalide", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Conflit de doublon film (même titre/date)", content = @Content),
             @ApiResponse(responseCode = "404", description = "Film introuvable", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erreur serveur", content = @Content)
     })
