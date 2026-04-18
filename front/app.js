@@ -21,6 +21,7 @@ function bindEls() {
     'loadMovies', 'clearMovies', 'moviesResult', 'movieCreateForm', 'movieSearchForm', 'moviePatchForm', 'movieDeleteForm',
     'loadUsers', 'clearUsers', 'usersResult', 'userRegisterForm', 'userSearchForm', 'userPatchForm', 'userDeleteForm',
     'loadReviews', 'clearReviews', 'reviewsResult', 'reviewCreateForm', 'reviewSearchForm', 'reviewPatchForm', 'reviewDeleteForm',
+    'reviewByMovieForm', 'reviewByUserForm',
     'clearLog'
   ].forEach((id) => { els[id] = document.getElementById(id); });
 }
@@ -143,6 +144,18 @@ function bindForms() {
     await loadReviews(`/reviews/search?movieId=${encodeURIComponent(movieId)}&userId=${encodeURIComponent(userId)}`);
   });
 
+  els.reviewByMovieForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const movieId = new FormData(e.currentTarget).get('movieId')?.toString().trim();
+    await loadReviews(`/movies/${encodeURIComponent(movieId)}/reviews`);
+  });
+
+  els.reviewByUserForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const userId = new FormData(e.currentTarget).get('userId')?.toString().trim();
+    await loadReviews(`/users/${encodeURIComponent(userId)}/reviews`);
+  });
+
   els.reviewPatchForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -176,6 +189,7 @@ async function loadReviews(path = '/reviews') {
 
 async function loadList(path, resultId, title) {
   try {
+    setResult(resultId, `<div class="item"><strong>${title}</strong><div class="item__meta">Chargement...</div></div>`);
     const data = await request(path, { method: 'GET' });
     renderCollection(resultId, title, data);
     log(`${path} -> OK`, 'ok');

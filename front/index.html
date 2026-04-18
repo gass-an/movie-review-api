@@ -40,7 +40,7 @@
           <button type="submit">Créer</button>
         </form>
 
-        <form id="movieSearchForm" class="card form">
+        <form id="movieSearchForm" class="card form card--search">
           <h3>Rechercher</h3>
           <label>Titre <input name="title" placeholder="matrix" required /></label>
           <button type="submit">Rechercher</button>
@@ -85,7 +85,7 @@
           <button type="submit">Créer</button>
         </form>
 
-        <form id="userSearchForm" class="card form">
+        <form id="userSearchForm" class="card form card--search">
           <h3>Rechercher</h3>
           <label>Username <input name="username" placeholder="JoeDalton" required /></label>
           <button type="submit">Rechercher</button>
@@ -133,13 +133,31 @@
           <button type="submit">Créer</button>
         </form>
 
-        <form id="reviewSearchForm" class="card form">
+        <form id="reviewSearchForm" class="card form card--search card--search-pair">
           <h3>Rechercher</h3>
           <div class="three-cols">
             <label>Movie ID <input name="movieId" type="number" min="1" required /></label>
             <label>User ID <input name="userId" type="number" min="1" required /></label>
           </div>
           <button type="submit">Rechercher</button>
+        </form>
+      </div>
+
+      <div class="two-cols">
+        <form id="reviewByMovieForm" class="card form card--query">
+          <h3>Reviews d'un film</h3>
+          <div class="search-inline">
+            <label>Movie ID <input name="movieId" type="number" min="1" required /></label>
+            <button type="submit">Afficher</button>
+          </div>
+        </form>
+
+        <form id="reviewByUserForm" class="card form card--query">
+          <h3>Reviews d'un user</h3>
+          <div class="search-inline">
+            <label>User ID <input name="userId" type="number" min="1" required /></label>
+            <button type="submit">Afficher</button>
+          </div>
         </form>
       </div>
 
@@ -160,7 +178,7 @@
       </form>
 
       <div id="reviewsResult" class="results"></div>
-      <div class="small-note">Endpoints: <code>GET /reviews/</code>, <code>GET /reviews/{id}</code>, <code>GET /reviews/search?movieId=...&amp;userId=...</code>, <code>POST /reviews</code>, <code>PATCH /reviews/{id}</code>, <code>DELETE /reviews/{id}</code></div>
+      <div class="small-note">Endpoints: <code>GET /reviews/</code>, <code>GET /reviews/{id}</code>, <code>GET /reviews/search?movieId=...&amp;userId=...</code>, <code>GET /movies/{id}/reviews</code>, <code>GET /users/{id}/reviews</code>, <code>POST /reviews</code>, <code>PATCH /reviews/{id}</code>, <code>DELETE /reviews/{id}</code></div>
     </section>
 
     <section class="panel panel--wide">

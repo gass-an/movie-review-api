@@ -214,65 +214,58 @@ code {
     min-width: 170px;
 }
 
-#movieDeleteForm,
-#userDeleteForm,
-#reviewDeleteForm {
+.card--search {
     grid-template-columns: 1fr auto;
     align-items: end;
     column-gap: .8rem;
     row-gap: .5rem;
 }
 
-#movieDeleteForm > h3,
-#userDeleteForm > h3,
-#reviewDeleteForm > h3 {
+.card--search > h3 {
     grid-column: 1 / -1;
 }
 
-#movieDeleteForm > label,
-#userDeleteForm > label,
-#reviewDeleteForm > label {
+.card--search > label {
     margin-bottom: 0;
 }
 
-#movieDeleteForm > button,
-#userDeleteForm > button,
-#reviewDeleteForm > button {
-    justify-self: end;
-    min-width: 170px;
-}
-
-#movieSearchForm,
-#userSearchForm,
-#reviewSearchForm {
-    grid-template-columns: 1fr auto;
-    align-items: end;
-    column-gap: .8rem;
-    row-gap: .5rem;
-}
-
-#movieSearchForm > h3,
-#userSearchForm > h3,
-#reviewSearchForm > h3 {
-    grid-column: 1 / -1;
-}
-
-#movieSearchForm > label,
-#userSearchForm > label,
-#reviewSearchForm > label {
-    margin-bottom: 0;
-}
-
-#reviewSearchForm > .three-cols {
+.card--search-pair > .three-cols {
     grid-column: 1;
     grid-template-columns: repeat(2, 1fr);
 }
 
-#movieSearchForm > button,
-#userSearchForm > button,
-#reviewSearchForm > button {
+.card--search > button {
     justify-self: end;
     min-width: 170px;
+}
+
+.card--query {
+    display: grid;
+    gap: .5rem;
+}
+
+.search-inline {
+    display: flex;
+    align-items: end;
+    gap: .8rem;
+    width: 100%;
+}
+
+.search-inline > label {
+    margin-bottom: 0;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.search-inline > button {
+    min-width: 170px;
+    flex: 0 0 170px;
+    justify-self: auto;
+    align-self: auto;
+}
+
+.card--query > h3 {
+    margin-bottom: 0;
 }
 
 .form__hint {
@@ -369,29 +362,24 @@ code {
         justify-self: stretch;
     }
 
-    #movieDeleteForm > button,
-    #userDeleteForm > button,
-    #reviewDeleteForm > button {
-        width: 100%;
-        min-width: 0;
-        justify-self: stretch;
-    }
-
-    #movieSearchForm,
-    #userSearchForm,
-    #reviewSearchForm {
+    .card--search,
+    .card--query {
         grid-template-columns: 1fr;
     }
 
-    #movieSearchForm > button,
-    #userSearchForm > button,
-    #reviewSearchForm > button {
+    .search-inline {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .card--search > button,
+    .search-inline > button {
         width: 100%;
         min-width: 0;
         justify-self: stretch;
     }
 
-    #reviewSearchForm > .three-cols {
+    .card--search-pair > .three-cols {
         grid-template-columns: 1fr;
     }
 }
@@ -400,4 +388,28 @@ code {
     .grid {
         grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
     }
+}
+
+.search-inline {
+    display: flex;
+    align-items: end;
+    gap: .8rem;
+    width: 100%;
+}
+
+.search-inline > label {
+    margin-bottom: 0;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.search-inline > label input {
+    width: 100%;
+}
+
+.search-inline > button {
+    min-width: 170px;
+    flex: 0 0 170px;
+    justify-self: auto;
+    align-self: auto;
 }
