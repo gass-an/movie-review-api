@@ -71,6 +71,18 @@ MovieReviewApiApplication
 
 ---
 
+## Donnees de base au demarrage
+
+L'application injecte automatiquement des donnees de base (users, movies, reviews)
+au demarrage via `DataInitializer`.
+
+- Active par defaut: `app.seed.enabled=true`
+- Desactivation possible: `app.seed.enabled=false`
+
+Ce seed est idempotent: les memes donnees ne sont pas dupliquees a chaque relance.
+
+---
+
 ## Arrêter la stack
 
 ```bash
